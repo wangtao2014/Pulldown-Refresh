@@ -19,6 +19,7 @@
 
 @synthesize listData;
 @synthesize reloading = _reloading;
+//@synthesize tableView;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -32,19 +33,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+//    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f) style:UITableViewStylePlain];
+//    self.tableView.delegate = self;
+//    self.tableView.dataSource = self;
+//	[self.view addSubview:self.tableView];
+    
 	if (refreshHeaderView == nil) {
 		refreshHeaderView = [[WTPullDownRefreshView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, 320.0f, self.tableView.bounds.size.height)];
-        NSLog(@"%@", NSStringFromCGRect(self.tableView.frame));
+        NSLog(@"%@", NSStringFromCGRect(self.tableView.frame)); // {{0, 20}, {320, 460}} 自己新建TableView时是：{{0, 0}, {320, 480}}
 		refreshHeaderView.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
 		[self.tableView addSubview:refreshHeaderView];
 		self.tableView.showsVerticalScrollIndicator = YES;
 	}
+     NSLog(@"origin=%@", NSStringFromCGPoint(self.tableView.frame.origin)); // 原点是origin={0, 20} 自己新建TableView时是：origin={0, 0}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.tableView setFrame:CGRectMake(0.0f, 64.0f, self.tableView.bounds.size.width, self.tableView.bounds.size.height)];
     [self setTitle:@"互联网公司"];
     [self setLoadData];
 }
@@ -75,7 +80,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     
     // Configure the cell...
     
@@ -95,7 +100,6 @@
 	
 }
 
-
 - (void)doneLoadingTableViewData{
 	//  model should call this when its done loading
 	[self dataSourceDidFinishLoadingNewData];
@@ -103,10 +107,14 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	
+    // 第一次打印：contentsize={{0, -64}, {320, 460}} 因为有navigationBar占去64pt 这时tableView已经偏移了64pt 在算offset时需要加上64pt
+    NSLog(@"contentsize=%@", NSStringFromCGRect(scrollView.bounds));
+    
 	if (scrollView.isDragging) {
-		if (refreshHeaderView.state == WTPullDownRefreshPulling && scrollView.contentOffset.y > -130.0f && scrollView.contentOffset.y < 0.0f && !_reloading) {
+        NSLog(@"y=%f", scrollView.contentOffset.y);
+		if (refreshHeaderView.state == WTPullDownRefreshPulling && scrollView.contentOffset.y > -128.0f && scrollView.contentOffset.y < 0.0f && !_reloading) {
 			[refreshHeaderView setState:WTPullDownRefreshNormal];
-		} else if (refreshHeaderView.state == WTPullDownRefreshNormal && scrollView.contentOffset.y < -130.0f && !_reloading) {
+		} else if (refreshHeaderView.state == WTPullDownRefreshNormal && scrollView.contentOffset.y < -128.0f && !_reloading) {
 			[refreshHeaderView setState:WTPullDownRefreshPulling];
 		}
 	}
@@ -116,14 +124,14 @@
 	
     // 上下拉动 下拉y<0 上拉y>0
     NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
-	if (scrollView.contentOffset.y <= - 130.0f && !_reloading) {
+	if (scrollView.contentOffset.y <= - 128.0f && !_reloading) {
 		_reloading = YES;
 		[self reloadTableViewDataSource];
 		[refreshHeaderView setState:WTPullDownRefreshLoading];
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.2];
         // The distance that the content view is inset from the enclosing scroll view.
-		self.tableView.contentInset = UIEdgeInsetsMake(64.0f, 0.0f, 0.0f, 0.0f);
+//		self.tableView.contentInset = UIEdgeInsetsMake(64.0f, 0.0f, 0.0f, 0.0f);
 		[UIView commitAnimations];
 	}
 }
@@ -134,7 +142,7 @@
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:.3];
-	[self.tableView setContentInset:UIEdgeInsetsMake(64.0f, 0.0f, 0.0f, 0.0f)];
+//	[self.tableView setContentInset:UIEdgeInsetsMake(64.0f, 0.0f, 0.0f, 0.0f)];
 	[UIView commitAnimations];
 	[self.tableView reloadData];
 	[refreshHeaderView setState:WTPullDownRefreshNormal];
