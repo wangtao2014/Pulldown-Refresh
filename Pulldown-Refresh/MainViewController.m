@@ -44,6 +44,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.tableView setFrame:CGRectMake(0.0f, 64.0f, self.tableView.bounds.size.width, self.tableView.bounds.size.height)];
     [self setTitle:@"互联网公司"];
     [self setLoadData];
 }
@@ -103,9 +104,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	
 	if (scrollView.isDragging) {
-		if (refreshHeaderView.state == WTPullDownRefreshPulling && scrollView.contentOffset.y > -65.0f && scrollView.contentOffset.y < 0.0f && !_reloading) {
+		if (refreshHeaderView.state == WTPullDownRefreshPulling && scrollView.contentOffset.y > -130.0f && scrollView.contentOffset.y < 0.0f && !_reloading) {
 			[refreshHeaderView setState:WTPullDownRefreshNormal];
-		} else if (refreshHeaderView.state == WTPullDownRefreshNormal && scrollView.contentOffset.y < -65.0f && !_reloading) {
+		} else if (refreshHeaderView.state == WTPullDownRefreshNormal && scrollView.contentOffset.y < -130.0f && !_reloading) {
 			[refreshHeaderView setState:WTPullDownRefreshPulling];
 		}
 	}
@@ -115,14 +116,14 @@
 	
     // 上下拉动 下拉y<0 上拉y>0
     NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
-	if (scrollView.contentOffset.y <= - 65.0f && !_reloading) {
+	if (scrollView.contentOffset.y <= - 130.0f && !_reloading) {
 		_reloading = YES;
 		[self reloadTableViewDataSource];
 		[refreshHeaderView setState:WTPullDownRefreshLoading];
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.2];
         // The distance that the content view is inset from the enclosing scroll view.
-		self.tableView.contentInset = UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f);
+		self.tableView.contentInset = UIEdgeInsetsMake(64.0f, 0.0f, 0.0f, 0.0f);
 		[UIView commitAnimations];
 	}
 }
@@ -133,7 +134,7 @@
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:.3];
-	[self.tableView setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+	[self.tableView setContentInset:UIEdgeInsetsMake(64.0f, 0.0f, 0.0f, 0.0f)];
 	[UIView commitAnimations];
 	[self.tableView reloadData];
 	[refreshHeaderView setState:WTPullDownRefreshNormal];
