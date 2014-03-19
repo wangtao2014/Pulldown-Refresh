@@ -10,7 +10,7 @@
 
 @class WTPullDownRefreshView;
 
-@interface MainViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate> {
+@interface MainViewController : UIViewController<UITableViewDataSource, UITableViewDelegate> {
 	
 	NSMutableArray *listData;
 	
@@ -19,7 +19,7 @@
 	BOOL _reloading;
 }
 // 不管是继承UITableViewController还是自己新建TableView效果都是一样的。
-//@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) UITableView *tableView;
 @property(nonatomic, retain) NSMutableArray *listData;
 
 @property(assign, getter=isReloading) BOOL reloading;

@@ -23,6 +23,8 @@
 		28DBCE3F18D04F570060AE84 /* WTPullDownRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DBCE3E18D04F570060AE84 /* WTPullDownRefreshView.m */; };
 		28DBCE4218D0522E0060AE84 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DBCE4018D0522E0060AE84 /* Default-568h@2x.png */; };
 		28DBCE4318D0522E0060AE84 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 28DBCE4118D0522E0060AE84 /* Default@2x.png */; };
+		28DFD93418D9302D002940EB /* ReadMe.txt in Resources */ = {isa = PBXBuildFile; fileRef = 28DFD93318D9302D002940EB /* ReadMe.txt */; };
+		28DFD93718D937B3002940EB /* NextViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28DFD93618D937B3002940EB /* NextViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,9 @@
 		28DBCE3E18D04F570060AE84 /* WTPullDownRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTPullDownRefreshView.m; sourceTree = "<group>"; };
 		28DBCE4018D0522E0060AE84 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		28DBCE4118D0522E0060AE84 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		28DFD93318D9302D002940EB /* ReadMe.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.txt; sourceTree = "<group>"; };
+		28DFD93518D937B3002940EB /* NextViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextViewController.h; sourceTree = "<group>"; };
+		28DFD93618D937B3002940EB /* NextViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +92,7 @@
 		28DBCDFF18D04F150060AE84 = {
 			isa = PBXGroup;
 			children = (
+				28DFD93318D9302D002940EB /* ReadMe.txt */,
 				28DBCE1118D04F150060AE84 /* Pulldown-Refresh */,
 				28DBCE2A18D04F150060AE84 /* Pulldown-RefreshTests */,
 				28DBCE0A18D04F150060AE84 /* Frameworks */,
@@ -125,6 +131,8 @@
 				28DBCE3B18D04F390060AE84 /* MainViewController.m */,
 				28DBCE3D18D04F570060AE84 /* WTPullDownRefreshView.h */,
 				28DBCE3E18D04F570060AE84 /* WTPullDownRefreshView.m */,
+				28DFD93518D937B3002940EB /* NextViewController.h */,
+				28DFD93618D937B3002940EB /* NextViewController.m */,
 			);
 			path = "Pulldown-Refresh";
 			sourceTree = "<group>";
@@ -238,6 +246,7 @@
 				28DBCE4318D0522E0060AE84 /* Default@2x.png in Resources */,
 				28DBCE1618D04F150060AE84 /* InfoPlist.strings in Resources */,
 				28DBCE1E18D04F150060AE84 /* Images.xcassets in Resources */,
+				28DFD93418D9302D002940EB /* ReadMe.txt in Resources */,
 				28DBCE4218D0522E0060AE84 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28DFD93718D937B3002940EB /* NextViewController.m in Sources */,
 				28DBCE3F18D04F570060AE84 /* WTPullDownRefreshView.m in Sources */,
 				28DBCE1C18D04F150060AE84 /* AppDelegate.m in Sources */,
 				28DBCE3C18D04F390060AE84 /* MainViewController.m in Sources */,
@@ -461,6 +471,7 @@
 				28DBCE3618D04F150060AE84 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		28DBCE3718D04F150060AE84 /* Build configuration list for PBXNativeTarget "Pulldown-RefreshTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +480,7 @@
 				28DBCE3918D04F150060AE84 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

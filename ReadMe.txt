@@ -1,0 +1,14 @@
+tableview中datasource方法调用顺序：
+-viewDidLoad
+-viewWillAppear
+-numberOfSectionsInTableView
+   - heightForHeaderInSection(delegate)
+   - heightForFooterInSection(delegate)
+-titleForHeaderInSection
+-titleForFooterInSection
+-numberOfRowsInSection
+   - heightForRowAtIndexPath(delegate) 会调用多次
+-cellForRowAtIndexPath 会调用多次
+-titleForHeaderInSection
+-titleForFooterInSection
+-viewDidAppear

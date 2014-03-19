@@ -8,6 +8,7 @@
 
 #import "MainViewController.h"
 #import "WTPullDownRefreshView.h"
+#import "NextViewController.h"
 
 @interface MainViewController (Private)
 
@@ -33,10 +34,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f) style:UITableViewStylePlain];
-//    self.tableView.delegate = self;
-//    self.tableView.dataSource = self;
-//	[self.view addSubview:self.tableView];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(handleAdd:)];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 480.0f) style:UITableViewStylePlain];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+	[self.view addSubview:self.tableView];
     
 	if (refreshHeaderView == nil) {
 		refreshHeaderView = [[WTPullDownRefreshView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, 320.0f, self.tableView.bounds.size.height)];
@@ -48,6 +52,12 @@
      NSLog(@"origin=%@", NSStringFromCGPoint(self.tableView.frame.origin)); // 原点是origin={0, 20} 自己新建TableView时是：origin={0, 0}
 }
 
+- (void)handleAdd:(id)sender
+{
+    NextViewController *nextController = [[NextViewController alloc] init];
+    [self.navigationController pushViewController:nextController animated:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setTitle:@"互联网公司"];
@@ -57,6 +67,16 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,6 +110,16 @@
     cell.textLabel.text = [self.listData objectAtIndex:indexPath.row];
     
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
+{
+    return @"footer";
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"header";
 }
 
 - (void)reloadTableViewDataSource{
@@ -148,5 +178,35 @@
 	[refreshHeaderView setState:WTPullDownRefreshNormal];
 	[refreshHeaderView setCurrentDate];  //  should check if data reload was successful
 }
+
+#pragma mark -
+#pragma mark Table View Delegate Method
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 100.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 100.0f;
+}
+
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return indexPath;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
 
 @end
